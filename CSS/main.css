@@ -4,10 +4,11 @@ padding:0;
 }
 #container
 { border:1px solid #0000EE;
-background:#00FF7F;
+background:#c8ff00;
 float:left;
 top: 60px;
 text-indent:0px;
+width:100%;
 }
 #container ul
 {
