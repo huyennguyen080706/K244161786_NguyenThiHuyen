@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai63</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="registration-form-box">
+        
+        <h1 class="form-title">Đăng ký thành viên</h1>
+        <hr class="form-divider">
+
+        <form id="memberForm" onsubmit="event.preventDefault();">
+            <div class="form-group-row">
+                <label class="field-label">Tên(*)</label>
+                <input type="text" id="txtTen" class="input-text-field">
+            </div>
+
+            <div class="form-group-row">
+                <label class="field-label">Ngày sinh(*)</label>
+                <div class="droplist-group">
+                    <span>Ngày:</span>
+                    <select id="selNgay"></select>
+                    <span>Tháng:</span>
+                    <select id="selThang"></select>
+                    <span>Năm:</span>
+                    <select id="selNam"></select>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="field-label">Giới tính(*)</label>
+                <div class="selection-group">
+                    <label class="radio-inline"><input type="radio" name="radGioiTinh" value="Nam" checked> Nam</label>
+                    <label class="radio-inline"><input type="radio" name="radGioiTinh" value="Nữ"> Nữ</label>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <label class="field-label">Email(*)</label>
+                <input type="text" id="txtEmail" class="input-text-field">
+            </div>
+
+            <div class="form-section-block">
+                <p class="section-label-text">Sở thích của bạn:</p>
+                <div class="checkbox-list">
+                    <label><input type="checkbox" name="chkSoThich" value="Mua sắm"> Mua sắm</label>
+                    <label><input type="checkbox" name="chkSoThich" value="Du lịch"> Du lịch</label>
+                    <label><input type="checkbox" name="chkSoThich" value="Tán gẫu"> Tán gẫu</label>
+                    <label><input type="checkbox" name="chkSoThich" value="Đọc sách"> Đọc sách</label>
+                    <label><input type="checkbox" name="chkSoThich" value="Nghe nhạc"> Nghe nhạc</label>
+                </div>
+            </div>
+
+            <div class="form-section-block">
+                <p class="section-label-text">Màu yêu thích của bạn:</p>
+                <div class="radio-color-list">
+                    <label><input type="radio" name="radMau" value="Màu xanh da trời" checked><span class="color-badge bg-blue">Màu xanh da trời</span></label>
+                    <label><input type="radio" name="radMau" value="Màu đỏ"><span class="color-badge bg-red">Màu đỏ</span></label>
+                    <label><input type="radio" name="radMau" value="Màu vàng"><span class="color-badge bg-yellow">Màu vàng</span></label>
+                    <label><input type="radio" name="radMau" value="Màu xanh lá cây"><span class="color-badge bg-green">Màu xanh xanh lá cây</span></label>
+                    <label><input type="radio" name="radMau" value="Màu xanh tím"><span class="color-badge bg-purple">Màu xanh tím</span></label>
+                </div>
+            </div>
+
+            <div class="action-buttons-group">
+                <button type="button" onclick="dangKyThanhVien()">Đăng ký</button>
+                <button type="button" onclick="bamTiepForm()">Tiếp</button>
+            </div>
+        </form>
+
+        <div class="table-responsive-area">
+            <table class="result-data-table" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Giới tính</th>
+                        <th>Năm sinh</th>
+                        <th>Sở thích</th>
+                        <th>Màu yêu thích</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onmouseover="doiMauNen(this, '#ffff00')" onmouseout="doiMauNen(this, '#ffffff')">
+                        <td>Nguyễn Văn Bình</td>
+                        <td>binh@gmail.com</td>
+                        <td>Nam</td>
+                        <td>02/02/1990</td>
+                        <td>đọc sách</td>
+                        <td>Màu vàng</td>
+                    </tr>
+                    <tr onmouseover="doiMauNen(this, '#ffff00')" onmouseout="doiMauNen(this, '#ffffff')">
+                        <td>Nguyễn Thị An</td>
+                        <td>nguyenthian@gmail.com</td>
+                        <td>Nữ</td>
+                        <td>01/01/1992</td>
+                        <td>Tán gẫu, đọc sách</td>
+                        <td>Màu đỏ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            napDuLieuCombo();
+            document.getElementById('txtTen').focus();
+        });
+
+        function napDuLieuCombo() {
+            const selNgay = document.getElementById('selNgay');
+            for (let i = 1; i <= 31; i++) {
+                let val = i < 10 ? '0' + i : i;
+                selNgay.options[selNgay.options.length] = new Option(val, val);
+            }
+
+            const selThang = document.getElementById('selThang');
+            for (let i = 1; i <= 12; i++) {
+                selThang.options[selThang.options.length] = new Option(i, i);
+            }
+
+            const selNam = document.getElementById('selNam');
+            const namHienTai = 2026;
+            for (let i = 1950; i <= namHienTai; i++) {
+                let opt = new Option(i, i);
+                selNam.options[selNam.options.length] = opt;
+                if (i === 1970) opt.selected = true;
+            }
+        }
+
+        function doiMauNen(row, color) {
+            row.style.backgroundColor = color;
+        }
+
+        function dangKyThanhVien() {
+            const ten = document.getElementById('txtTen').value.trim();
+            const email = document.getElementById('txtEmail').value.trim();
+
+            if (ten === "") {
+                alert("Vui lòng không bỏ trống ô Tên!");
+                document.getElementById('txtTen').focus();
+                return;
+            }
+
+            if (email === "" || !email.includes("@")) {
+                alert("Email không hợp lệ hoặc bị bỏ trống!");
+                document.getElementById('txtEmail').focus();
+                return;
+            }
+
+            const ngay = document.getElementById('selNgay').value;
+            const thang = document.getElementById('selThang').value;
+            const nam = document.getElementById('selNam').value;
+            const dinhDangThang = thang < 10 ? '0' + thang : thang;
+            const chuoiNamSinh = `${ngay}/${dinhDangThang}/${nam}`;
+
+            const gioiTinh = document.querySelector('input[name="radGioiTinh"]:checked').value;
+            const mauYeuThich = document.querySelector('input[name="radMau"]:checked').value;
+
+            let dsSoThich = [];
+            const chkBoxes = document.querySelectorAll('input[name="chkSoThich"]:checked');
+            chkBoxes.forEach(item => dsSoThich.push(item.value));
+            const chuoiSoThich = dsSoThich.join(", ");
+
+            const tbody = document.getElementById('tblResult').getElementsByTagName('tbody')[0];
+            const newRow = tbody.insertRow();
+
+            newRow.onmouseover = function() { doiMauNen(this, '#ffff00'); };
+            newRow.onmouseout = function() { doiMauNen(this, '#ffffff'); };
+
+            newRow.insertCell(0).textContent = ten;
+            newRow.insertCell(1).textContent = email;
+            newRow.insertCell(2).textContent = gioiTinh;
+            newRow.insertCell(3).textContent = chuoiNamSinh;
+            newRow.insertCell(4).textContent = chuoiSoThich;
+            newRow.insertCell(5).textContent = mauYeuThich;
+        }
+
+        function bamTiepForm() {
+            document.getElementById('txtTen').value = "";
+            document.getElementById('txtEmail').value = "";
+            document.getElementById('selNgay').selectedIndex = 0;
+            document.getElementById('selThang').selectedIndex = 0;
+            document.getElementById('selNam').value = "1970";
+            
+            document.querySelectorAll('input[name="radGioiTinh"]')[0].checked = true;
+            document.querySelectorAll('input[name="radMau"]')[0].checked = true;
+
+            const chkBoxes = document.querySelectorAll('input[name="chkSoThich"]');
+            chkBoxes.forEach(item => item.checked = false);
+
+            document.getElementById('txtTen').focus();
+        }
+    </script>
+
+</body>
+</html>

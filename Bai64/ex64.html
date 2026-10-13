@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tương tác Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="table-interactive-box">
+        
+        <div id="digitalClock" class="clock-display">00:00:00</div>
+
+        <div class="click-test-zone" onmousedown="kiemTraNutChuot(event)" oncontextmenu="event.preventDefault();">
+            Click chuột vào dòng này. Sẽ xuất hiện thông báo phím bấm của chuột
+        </div>
+
+        <table class="data-table" id="myTable">
+            <tbody>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Thêm dòng mới ở đây</td>
+                    <td>Thêm dòng mới ở đây</td>
+                </tr>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Thêm dòng mới ở đây</td>
+                    <td>Thêm dòng mới ở đây</td>
+                </tr>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Thêm dòng mới ở đây</td>
+                    <td>Thêm dòng mới ở đây</td>
+                </tr>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Dòng 1 cột 1</td>
+                    <td>Dòng 1 cột 2</td>
+                </tr>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Dòng 2 cột 1</td>
+                    <td>Dòng 2 cột 2</td>
+                </tr>
+                <tr onclick="toggleMauDo(this)">
+                    <td>Dòng 3 cột 1</td>
+                    <td>Dòng 3 cột 2</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="action-buttons-group">
+            <button type="button" onclick="themDongMoi()">Thêm vào</button>
+            <button type="button" onclick="xoaDongChecked()">Xoá</button>
+            <button type="button" onclick="chiHienDong()">Chỉ hiện dòng</button>
+            <button type="button" onclick="chiHienCot()">Chỉ hiện cột</button>
+            <button type="button" onclick="moTrangMoi()">Mở một trang mới</button>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setInterval(chayDongHo, 1000);
+            chayDongHo();
+        });
+
+        function chayDongHo() {
+            const now = new Date();
+            let h = now.getHours();
+            let m = now.getMinutes();
+            let s = now.getSeconds();
+
+            h = h < 10 ? '0' + h : h;
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+
+            document.getElementById('digitalClock').textContent = `${h}:${m}:${s}`;
+        }
+
+        function kiemTraNutChuot(event) {
+            if (event.button === 0) {
+                alert("Bạn đã click bằng chuột trái!");
+            } else if (event.button === 2) {
+                alert("Bạn đã click bằng chuột phải!");
+            }
+        }
+
+        function toggleMauDo(rowElement) {
+            rowElement.classList.toggle('selected-red-row');
+        }
+
+        function themDongMoi() {
+            const tableBody = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+            const newRow = tableBody.insertRow();
+            
+            newRow.onclick = function() { toggleMauDo(this); };
+            
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            
+            cell1.textContent = "Thêm dòng mới ở đây";
+            cell2.textContent = "Thêm dòng mới ở đây";
+        }
+
+        function xoaDongChecked() {
+            const tableBody = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+            const rows = tableBody.getElementsByTagName('tr');
+            
+            for (let i = rows.length - 1; i >= 0; i--) {
+                if (rows[i].classList.contains('selected-red-row')) {
+                    tableBody.deleteRow(i);
+                }
+            }
+        }
+
+        function chiHienDong() {
+            const cells = document.querySelectorAll('#myTable td');
+            cells.forEach(cell => {
+                cell.style.borderLeft = 'none';
+                cell.style.borderRight = 'none';
+            });
+        }
+
+        function chiHienCot() {
+            const cells = document.querySelectorAll('#myTable td');
+            cells.forEach(cell => {
+                cell.style.borderTop = 'none';
+                cell.style.borderBottom = 'none';
+                cell.style.borderLeft = '1px solid #7f7f7f';
+                cell.style.borderRight = '1px solid #7f7f7f';
+            });
+        }
+
+        function moTrangMoi() {
+            window.open("https://tranduythanh.com", "_blank");
+        }
+    </script>
+
+</body>
+</html>

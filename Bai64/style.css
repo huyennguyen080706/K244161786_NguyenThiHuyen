@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.table-interactive-box {
+    width: 100%;
+    max-width: 650px;
+    background-color: #ffffff;
+    border: 1px solid #7f7f7f;
+    padding: 15px 20px;
+}
+
+.clock-display {
+    font-size: 15px;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+.click-test-zone {
+    font-size: 15px;
+    color: #000000;
+    padding: 6px 0;
+    margin-bottom: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #7f7f7f;
+    margin-bottom: 25px;
+}
+
+.data-table td {
+    border: 1px solid #7f7f7f;
+    padding: 4px 8px;
+    font-size: 14.5px;
+    color: #000000;
+    text-align: left;
+    height: 26px;
+}
+
+.data-table tbody tr {
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.selected-red-row {
+    background-color: #ff0000 !important;
+}
+
+.selected-red-row td {
+    color: #ffffff !important;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.action-buttons-group button {
+    padding: 3px 10px;
+    font-size: 13.5px;
+    background-color: #f0f0f0;
+    color: #000000;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.action-buttons-group button:hover {
+    background-color: #e5e5e5;
+}
